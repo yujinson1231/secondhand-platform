@@ -1,6 +1,6 @@
 # Tiny Second-hand Shopping Platform
 
-간단한 중고거래 플랫폼입니다. (Secure Coding 과제)
+간단한 중고거래 플랫폼입니다.
 
 Flask 기반 서버 렌더링 웹 애플리케이션으로, 회원가입/로그인, 상품 등록·조회·검색, 전체/1:1 실시간 채팅,
 유저·상품 신고 및 자동 차단/휴면 처리, 유저 간 포인트 송금, 마이페이지, 관리자 페이지를 제공합니다.
@@ -62,7 +62,7 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-`SECRET_KEY`는 아래 명령으로 무작위 값을 생성해서 채워 넣으세요. (예시 값을 그대로 쓰지 마세요)
+`SECRET_KEY`는 아래 명령으로 무작위 값을 생성해서 채워 넣으세요. 
 
 ```bash
 python -c "import secrets; print(secrets.token_hex(32))"
