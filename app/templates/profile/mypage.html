@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}마이페이지{% endblock %}
+{% block content %}
+<h2>마이페이지</h2>
+
+<div class="card">
+  <h3>소개글</h3>
+  <form method="post" action="{{ url_for('profile.update_bio') }}" novalidate>
+    {{ bio_form.hidden_tag() }}
+    <label for="bio">{{ bio_form.bio.label.text }}</label>
+    {{ bio_form.bio(id="bio", rows=4) }}
+    {% for error in bio_form.bio.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+    <div class="actions-row">
+      <button class="btn" type="submit">저장</button>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  <h3>비밀번호 변경</h3>
+  <form method="post" action="{{ url_for('profile.update_password') }}" novalidate>
+    {{ password_form.hidden_tag() }}
+    <label for="current_password">{{ password_form.current_password.label.text }}</label>
+    {{ password_form.current_password(id="current_password", type="password", autocomplete="current-password") }}
+    {% for error in password_form.current_password.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+
+    <label for="new_password">{{ password_form.new_password.label.text }}</label>
+    {{ password_form.new_password(id="new_password", type="password", autocomplete="new-password") }}
+    {% for error in password_form.new_password.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+
+    <label for="new_password_confirm">{{ password_form.new_password_confirm.label.text }}</label>
+    {{ password_form.new_password_confirm(id="new_password_confirm", type="password", autocomplete="new-password") }}
+    {% for error in password_form.new_password_confirm.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+
+    <div class="actions-row">
+      <button class="btn" type="submit">비밀번호 변경</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

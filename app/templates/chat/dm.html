@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ other.username }}님과의 채팅{% endblock %}
+{% block content %}
+<h2>{{ other.username }}님과의 1:1 채팅</h2>
+<div class="chat-box" id="chat-root" data-room="{{ room }}" data-current-user-id="{{ current_user.id }}">
+  <div class="chat-messages" id="chat-messages">
+    {% for msg in history %}
+      <div class="chat-msg {{ 'mine' if msg.sender_id == current_user.id else '' }}">
+        <div class="meta">{{ msg.sender.username }} · {{ msg.created_at | kst("%H:%M") }}</div>
+        <div class="text">{{ msg.content }}</div>
+      </div>
+    {% endfor %}
+  </div>
+  <form class="chat-input" id="chat-form">
+    <input type="text" id="chat-input" maxlength="2000" placeholder="메시지를 입력하세요" autocomplete="off">
+    <button class="btn" type="submit">전송</button>
+  </form>
+</div>
+<p class="muted" style="margin-top:0.5rem;">
+  <a href="{{ url_for('reports.report_user', user_id=other.id) }}">이 사용자 신고하기</a>
+</p>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

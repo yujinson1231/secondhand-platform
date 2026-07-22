@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}감사 로그{% endblock %}
+{% block content %}
+<h2>감사 로그</h2>
+<table>
+  <thead><tr><th>관리자</th><th>행동</th><th>대상</th><th>일시</th></tr></thead>
+  <tbody>
+  {% for log in logs %}
+    <tr>
+      <td>{{ log.actor.username }}</td>
+      <td>{{ log.action }}</td>
+      <td>{{ log.target_type }} #{{ log.target_id }}</td>
+      <td>{{ log.created_at | kst }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

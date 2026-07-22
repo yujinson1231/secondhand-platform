@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}송금 내역{% endblock %}
+{% block content %}
+<h2>송금 내역</h2>
+
+<div class="card">
+  <h3>보낸 내역</h3>
+  {% if sent %}
+  <table>
+    <thead><tr><th>받는 사람</th><th>금액</th><th>일시</th></tr></thead>
+    <tbody>
+    {% for tx in sent %}
+      <tr><td>{{ tx.receiver.username }}</td><td>{{ "{:,}".format(tx.amount) }}P</td><td>{{ tx.created_at | kst }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p class="muted">보낸 내역이 없습니다.</p>{% endif %}
+</div>
+
+<div class="card">
+  <h3>받은 내역</h3>
+  {% if received %}
+  <table>
+    <thead><tr><th>보낸 사람</th><th>금액</th><th>일시</th></tr></thead>
+    <tbody>
+    {% for tx in received %}
+      <tr><td>{{ tx.sender.username }}</td><td>{{ "{:,}".format(tx.amount) }}P</td><td>{{ tx.created_at | kst }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p class="muted">받은 내역이 없습니다.</p>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ profile_user.username }}{% endblock %}
+{% block content %}
+<div class="card" style="max-width:480px;margin:0 auto;">
+  <h2>{{ profile_user.username }}
+    {% if profile_user.is_admin %}<span class="badge badge-admin">관리자</span>{% endif %}
+  </h2>
+  <p style="white-space:pre-wrap;">{{ profile_user.bio or "소개글이 없습니다." }}</p>
+
+  {% if current_user.is_authenticated and current_user.id != profile_user.id %}
+  <div class="actions-row">
+    <a class="btn btn-secondary" href="{{ url_for('chat.dm', user_id=profile_user.id) }}">채팅하기</a>
+    <a class="btn btn-danger" href="{{ url_for('reports.report_user', user_id=profile_user.id) }}">신고하기</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

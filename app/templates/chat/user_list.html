@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}1:1 채팅{% endblock %}
+{% block content %}
+<h2>1:1 채팅 상대 선택</h2>
+{% if users %}
+<table>
+  <thead><tr><th>아이디</th><th></th></tr></thead>
+  <tbody>
+  {% for user in users %}
+    <tr>
+      <td>{{ user.username }}</td>
+      <td><a class="btn btn-small" href="{{ url_for('chat.dm', user_id=user.id) }}">채팅하기</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="muted">채팅할 수 있는 다른 사용자가 없습니다.</p>
+{% endif %}
+{% endblock %}

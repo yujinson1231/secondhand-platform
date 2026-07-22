@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}관리자{% endblock %}
+{% block content %}
+<h2>관리자 대시보드</h2>
+<div class="product-grid">
+  <div class="card"><h3>{{ stats.user_count }}</h3><p class="muted">전체 유저</p></div>
+  <div class="card"><h3>{{ stats.product_count }}</h3><p class="muted">전체 상품</p></div>
+  <div class="card"><h3>{{ stats.report_count }}</h3><p class="muted">전체 신고</p></div>
+</div>
+<div class="actions-row" style="margin-top:1rem;">
+  <a class="btn" href="{{ url_for('admin.users') }}">유저 관리</a>
+  <a class="btn" href="{{ url_for('admin.products') }}">상품 관리</a>
+  <a class="btn" href="{{ url_for('admin.reports') }}">신고 목록</a>
+  <a class="btn" href="{{ url_for('admin.audit_logs') }}">감사 로그</a>
+</div>
+{% endblock %}

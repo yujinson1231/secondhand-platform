@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}상품 등록{% endblock %}
+{% block content %}
+<div class="card" style="max-width:520px;margin:0 auto;">
+  <h2>상품 등록</h2>
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {{ form.hidden_tag() }}
+    <label for="name">{{ form.name.label.text }}</label>
+    {{ form.name(id="name") }}
+    {% for error in form.name.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+
+    <label for="description">{{ form.description.label.text }}</label>
+    {{ form.description(id="description", rows=5) }}
+    {% for error in form.description.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+
+    <label for="price">{{ form.price.label.text }}</label>
+    {{ form.price(id="price") }}
+    {% for error in form.price.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+
+    <label for="image">{{ form.image.label.text }}</label>
+    {{ form.image(id="image", accept="image/png,image/jpeg,image/gif,image/webp") }}
+    {% for error in form.image.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+
+    <div class="actions-row">
+      <button class="btn" type="submit">등록하기</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

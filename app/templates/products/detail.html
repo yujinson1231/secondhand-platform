@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<div class="card">
+  {% if product.status != "active" %}
+    <span class="badge badge-blocked">차단된 상품 (관리자/판매자만 열람 가능)</span>
+  {% endif %}
+  {% if product.image_filename %}
+    <img src="{{ url_for('static', filename='uploads/' ~ product.image_filename) }}" alt=""
+         style="max-width:100%;border-radius:10px;margin-bottom:1rem;">
+  {% endif %}
+  <h2>{{ product.name }}</h2>
+  <p class="price" style="font-size:1.3rem;font-weight:700;">{{ "{:,}".format(product.price) }}원</p>
+  <p style="white-space:pre-wrap;">{{ product.description }}</p>
+  <p class="muted">
+    판매자:
+    <a href="{{ url_for('profile.view_profile', user_id=product.seller.id) }}">{{ product.seller.username }}</a>
+  </p>
+
+  <div class="actions-row">
+    {% if current_user.is_authenticated %}
+      {% if current_user.id == product.seller_id %}
+        <form action="{{ url_for('products.delete', product_id=product.id) }}" method="post"
+              data-confirm="정말 삭제하시겠습니까?">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-danger" type="submit">삭제</button>
+        </form>
+      {% else %}
+        <a class="btn btn-secondary" href="{{ url_for('chat.dm', user_id=product.seller_id) }}">판매자와 채팅</a>
+        <a class="btn btn-danger" href="{{ url_for('reports.report_product', product_id=product.id) }}">신고하기</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

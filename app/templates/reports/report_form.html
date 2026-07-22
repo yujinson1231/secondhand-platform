@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}신고하기{% endblock %}
+{% block content %}
+<div class="card" style="max-width:480px;margin:0 auto;">
+  <h2>신고하기</h2>
+  <p class="muted">신고 대상: {{ target_label }}</p>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <label for="reason">{{ form.reason.label.text }}</label>
+    {{ form.reason(id="reason", rows=5, placeholder="신고 사유를 구체적으로 작성해주세요.") }}
+    {% for error in form.reason.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+    <div class="actions-row">
+      <button class="btn btn-danger" type="submit">신고 제출</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

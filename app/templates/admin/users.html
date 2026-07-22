@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}유저 관리{% endblock %}
+{% block content %}
+<h2>유저 관리</h2>
+<table>
+  <thead><tr><th>ID</th><th>아이디</th><th>권한</th><th>상태</th><th>잔액</th><th>작업</th></tr></thead>
+  <tbody>
+  {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ "관리자" if user.is_admin else "일반" }}</td>
+      <td>
+        {% if user.status == "active" %}<span class="badge badge-active">활성</span>
+        {% else %}<span class="badge badge-blocked">휴면</span>{% endif %}
+      </td>
+      <td>{{ "{:,}".format(user.balance) }}P</td>
+      <td>
+        {% if not user.is_admin %}
+        <div class="actions-row">
+          {% if user.status == "active" %}
+          <form method="post" action="{{ url_for('admin.suspend_user', user_id=user.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-small btn-danger" type="submit">휴면 처리</button>
+          </form>
+          {% else %}
+          <form method="post" action="{{ url_for('admin.activate_user', user_id=user.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-small" type="submit">활성화</button>
+          </form>
+          {% endif %}
+          <form method="post" action="{{ url_for('admin.delete_user', user_id=user.id) }}"
+                data-confirm="정말 삭제하시겠습니까?">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-small btn-secondary" type="submit">삭제</button>
+          </form>
+        </div>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
