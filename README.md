@@ -121,7 +121,7 @@ python run.py
 6. 검사가 끝나면 ngrok 터미널을 Ctrl+C로 종료해 터널을 닫으세요. (열려 있는 동안은 URL을 아는 누구나
    접속할 수 있는 공개 주소이므로, 필요한 시간에만 켜두는 것이 안전합니다.)
 
-> 같은 Wi-Fi에 있는 게 확실한 상황(예: 같은 방에서 본인 PC로 검사받는 경우)이라면, ngrok 없이도 콘솔에
+> 같은 Wi-Fi에 있는 게 확실한 상황이라면, ngrok 없이도 콘솔에
 > 출력되는 `http://<PC의 로컬 IP>:5000` 주소(Windows는 `ipconfig`, macOS/Linux는 `ifconfig`/`ip addr`로 확인)를
 > 휴대폰에 그대로 입력해 접속할 수 있습니다. 다만 WSL을 사용 중이라면 기본(NAT) 네트워킹 모드에서는 외부 기기가
 > WSL 내부로 접속하지 못할 수 있어(`.wslconfig`에 `networkingMode=mirrored` 설정 필요), 위 ngrok 방법이 더 확실합니다.
@@ -140,8 +140,7 @@ python run.py
   **여러 사람이 접속 가능한 환경(같은 Wi-Fi, ngrok 등)에서는 반드시 `FLASK_ENV=production`으로 실행하세요.**
   디버그 모드가 켜진 채로 네트워크에 노출하면 Werkzeug 인터랙티브 디버거를 통해 임의 코드 실행으로
   이어질 수 있는 위험이 있습니다.
-- 기본 SQLite + 개발용 서버(Werkzeug)는 과제/데모 목적입니다. 실제 서비스라면 PostgreSQL 등의 운영급 DB와
-  gunicorn/eventlet 기반 WSGI 서버, Flask-Limiter의 Redis 스토리지 등을 사용해야 합니다.
+- 기본 SQLite + 개발용 서버(Werkzeug)는 과제/데모 목적입니다. 실제 서비스라면 PostgreSQL 등의 운영급 DB와 gunicorn/eventlet 기반 WSGI 서버, Flask-Limiter의 Redis 스토리지 등을 사용해야 합니다.
 
 ## 프로젝트 구조
 
